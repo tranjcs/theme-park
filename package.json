@@ -1,0 +1,27 @@
+{
+  "name": "theme-park",
+  "version": "0.1.0",
+  "description": "A plug-and-play CSS theme library with a live builder. Drop in a theme, swap it out anytime.",
+  "keywords": ["css", "themes", "design-system", "wcag", "accessible", "vanilla"],
+  "homepage": "https://tranjcs.github.io/Theme-Park",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tranjcs/Theme-Park.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tranjcs/Theme-Park/issues"
+  },
+  "license": "MIT",
+  "author": "tranjcs",
+  "files": [
+    "themes/",
+    "components/"
+  ],
+  "main": "themes/theme-modern.css",
+  "style": "themes/theme-modern.css",
+  "exports": {
+    "./themes/modern":   "./themes/theme-modern.css",
+    "./themes/editorial":"./themes/theme-editorial.css",
+    "./themes/terminal": "./themes/theme-terminal.css"
+  }
+}

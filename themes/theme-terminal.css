@@ -1,0 +1,201 @@
+/* ============================================================
+   TERMINAL THEME — Monospace, hacker-green, high contrast
+   ============================================================ */
+
+:root {
+  --font-mono:   'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  --font-sans:   var(--font-mono);
+
+  --color-bg:         #0d1117;
+  --color-surface:    #161b22;
+  --color-border:     #30363d;
+
+  --color-text:       #c9d1d9;
+  --color-text-muted: #8b949e;
+
+  --color-accent:     #3fb950;
+  --color-accent-light: #12261a;
+  --color-accent-dark:  #2ea043;
+
+  --color-btn-bg:     #238636;
+  --color-btn-text:   #ffffff;
+  --color-btn-hover:  #2ea043;
+
+  --color-code-bg:    #010409;
+  --color-code-text:  #3fb950;
+  --color-code-border:#30363d;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 4px;
+
+  --shadow-sm: 0 0 0 1px #30363d;
+  --shadow-md: 0 0 12px rgba(63,185,80,0.15);
+}
+
+body {
+  font-family: var(--font-mono);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* ── Typography ─────────────────────────────────────────── */
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.title::before { content: '# '; opacity: 0.4; }
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+h1::before { content: '## '; color: var(--color-text-muted); font-weight: 400; }
+
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #58a6ff;
+  margin-bottom: 0.5rem;
+}
+h2::before { content: '### '; color: var(--color-text-muted); font-weight: 400; }
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffa657;
+  margin-bottom: 0.5rem;
+}
+h3::before { content: '#### '; color: var(--color-text-muted); font-weight: 400; }
+
+/* ── Buttons ─────────────────────────────────────────────── */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-btn-bg);
+  color: var(--color-btn-text);
+  border-color: var(--color-accent-dark);
+}
+.btn-primary:hover {
+  background: var(--color-btn-hover);
+  box-shadow: 0 0 8px rgba(63,185,80,0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.btn-secondary:hover { background: var(--color-accent-light); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+/* ── Images ──────────────────────────────────────────────── */
+
+.img-base {
+  display: block;
+  max-width: 100%;
+  filter: grayscale(20%) brightness(0.9);
+}
+
+.img-card {
+  display: block;
+  max-width: 100%;
+  border: 1px solid var(--color-border);
+  filter: grayscale(20%) brightness(0.9);
+  box-shadow: 0 0 16px rgba(63,185,80,0.08);
+}
+
+.img-caption {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 0.4rem;
+  text-align: left;
+}
+.img-caption::before { content: '// '; }
+
+figure {
+  margin: 1.5rem 0;
+}
+
+/* ── Code ────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  line-height: 1.6;
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+pre::before {
+  content: '$ ';
+  color: var(--color-text-muted);
+}
+
+pre code {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ── Focus & Motion ──────────────────────────────────────── */
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

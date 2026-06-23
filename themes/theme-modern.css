@@ -1,0 +1,185 @@
+/* ============================================================
+   MODERN THEME — Clean, geometric, blue accent
+   ============================================================ */
+
+:root {
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  --color-bg:         #ffffff;
+  --color-surface:    #f5f7fa;
+  --color-border:     #e2e8f0;
+
+  --color-text:       #0f172a;
+  --color-text-muted: #475569;
+
+  --color-accent:     #2563eb;
+  --color-accent-light: #eff6ff;
+  --color-accent-dark:  #1d4ed8;
+
+  --color-btn-bg:     #2563eb;
+  --color-btn-text:   #ffffff;
+  --color-btn-hover:  #1d4ed8;
+
+  --color-code-bg:    #0f172a;
+  --color-code-text:  #e2e8f0;
+  --color-code-border:#1e293b;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* ── Typography ─────────────────────────────────────────── */
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-btn-bg);
+  color: var(--color-btn-text);
+}
+.btn-primary:hover { background: var(--color-btn-hover); }
+
+.btn-secondary {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+.btn-secondary:hover { background: #dbeafe; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+.btn-ghost:hover { background: var(--color-surface); }
+
+/* ── Images ──────────────────────────────────────────────── */
+
+.img-base {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+}
+
+.img-card {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.img-caption {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+figure {
+  margin: 1.5rem 0;
+}
+
+/* ── Code ────────────────────────────────────────────────── */
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-surface);
+  color: var(--color-accent-dark);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  line-height: 1.6;
+  border: 1px solid var(--color-code-border);
+}
+
+pre code {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ── Focus & Motion ──────────────────────────────────────── */
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
