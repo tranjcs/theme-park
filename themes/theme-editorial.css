@@ -186,12 +186,55 @@ pre code {
   font-size: inherit;
 }
 
-/* ── Focus & Motion ──────────────────────────────────────── */
+/* ── Button hover ────────────────────────────────────────── */
+
+.btn-primary:hover   { background: var(--color-btn-hover); }
+.btn-secondary:hover { background: var(--color-accent-light); }
+.btn-ghost:hover     { background: var(--color-surface); color: var(--color-text); border-color: var(--color-text-muted); }
+
+/* ── Focus ───────────────────────────────────────────────── */
 
 :focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: background 0.15s ease, transform 0.15s ease,
+                border-color 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover  { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+
+  @keyframes tp-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tp-slide-in {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes tp-scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes tp-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.6; }
+  }
+
+  .animate-fade-in  { animation: tp-fade-in  0.4s ease both; }
+  .animate-slide-in { animation: tp-slide-in 0.35s ease both; }
+  .animate-scale-in { animation: tp-scale-in 0.3s ease both; }
+  .animate-pulse    { animation: tp-pulse    1.8s ease infinite; }
+
+  .animate-delay-1 { animation-delay: 0.1s; }
+  .animate-delay-2 { animation-delay: 0.2s; }
+  .animate-delay-3 { animation-delay: 0.3s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
