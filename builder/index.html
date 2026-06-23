@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Theme Builder — Theme Park</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,213 +15,203 @@
       --text:    #0f172a;
       --muted:   #64748b;
       --accent:  #2563eb;
-      --mono:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-      --sans:    system-ui, 'Segoe UI', sans-serif;
+      --mono:    'JetBrains Mono','Fira Code','Courier New',monospace;
+      --sans:    system-ui,'Segoe UI',sans-serif;
       --radius:  8px;
     }
 
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
     /* ── Nav ── */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 56px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 52px;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
     }
-    .nav-logo {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .nav-logo { font-size: 1rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a {
-      font-size: 14px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .15s;
-    }
+    .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .15s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 16px;
-      background: var(--accent);
-      color: #fff;
-      border-radius: var(--radius);
-      text-decoration: none;
-      transition: opacity .15s;
-    }
-    .nav-cta:hover { opacity: .88; }
+    .nav-cta { font-size: 13px; font-weight: 500; padding: 6px 16px; background: var(--accent); color: #fff; border-radius: var(--radius); text-decoration: none; }
 
-    /* ── Layout ── */
-    .layout {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-      height: calc(100vh - 56px);
+    /* ── Page tabs ── */
+    .page-tabs {
+      display: flex; gap: 0; background: var(--surface);
+      border-bottom: 1px solid var(--border); padding: 0 2rem;
     }
+    .page-tab {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; padding: 10px 16px;
+      border: none; background: transparent; color: var(--muted);
+      cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -1px; font-family: var(--sans);
+      transition: color .15s, border-color .15s;
+    }
+    .page-tab:hover { color: var(--text); }
+    .page-tab.on { color: var(--accent); border-bottom-color: var(--accent); }
 
-    /* ── Controls sidebar ── */
+    /* ── Tab panes ── */
+    .tab-pane { display: flex; flex: 1; flex-direction: column; overflow: hidden; height: calc(100vh - 101px); }
+    .tab-pane[hidden] { display: none; }
+
+    /* ── Builder: sidebar ── */
+    .builder-layout { display: flex; flex: 1; overflow: hidden; }
     .sidebar {
-      width: 260px;
-      flex-shrink: 0;
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      overflow-y: auto;
-      padding: 1.25rem;
+      width: 240px; flex-shrink: 0; background: var(--surface);
+      border-right: 1px solid var(--border); overflow-y: auto; padding: 1.1rem;
     }
-    .sidebar-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--muted);
-      font-weight: 600;
-      margin-bottom: .75rem;
-    }
-    .ctrl-section { margin-bottom: 1.5rem; }
-    .ctrl-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
+    .sidebar-title { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; margin-bottom: .6rem; }
+    .ctrl-section { margin-bottom: 1.25rem; }
+    .ctrl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
     .ctrl-name { font-size: 13px; color: var(--text); }
-    input[type="color"] {
-      width: 36px;
-      height: 24px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      padding: 1px 2px;
-      background: none;
-    }
-    select, .styled-select {
-      width: 100%;
-      font-size: 13px;
-      font-family: var(--sans);
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      margin-top: 4px;
-      cursor: pointer;
-    }
+    input[type="color"] { width: 34px; height: 22px; border-radius: 4px; border: 1px solid var(--border); cursor: pointer; padding: 1px 2px; background: none; }
+    select { width: 100%; font-size: 13px; font-family: var(--sans); padding: 5px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); margin-top: 4px; cursor: pointer; }
     .range-wrap { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
     .range-wrap input[type="range"] { flex: 1; }
-    .range-val { font-size: 12px; font-family: var(--mono); color: var(--text); min-width: 30px; text-align: right; }
+    .range-val { font-size: 11px; font-family: var(--mono); color: var(--text); min-width: 28px; text-align: right; }
+    .preset-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .preset-btn { font-size: 12px; padding: 4px 11px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-family: var(--sans); transition: all .12s; }
+    .preset-btn.on { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-    .preset-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
-    .preset-btn {
-      font-size: 12px;
-      padding: 5px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      font-family: var(--sans);
-      transition: all .12s;
-    }
-    .preset-btn.on {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    /* ── Main preview ── */
-    .main {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .preview-wrap {
-      flex: 1;
-      overflow-y: auto;
-      padding: 2.5rem;
-    }
-    .preview-card {
-      max-width: 680px;
-      margin: 0 auto;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem 2.5rem;
-    }
-
-    /* ── CSS Output panel ── */
-    .output-panel {
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-    }
-    .output-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 1.5rem;
-      border-bottom: 1px solid var(--border);
-      background: #f8f9fa;
-      cursor: pointer;
-      user-select: none;
-    }
-    .output-label { font-size: 12px; font-family: var(--mono); color: var(--muted); }
-    .output-actions { display: flex; gap: 8px; align-items: center; }
-    .copy-btn {
-      font-size: 12px;
-      padding: 4px 13px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      font-family: var(--sans);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: background .12s;
-    }
+    /* ── Builder: main ── */
+    .builder-main { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+    .preview-wrap { flex: 1; overflow-y: auto; padding: 2rem; }
+    .preview-card { max-width: 620px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem 2.25rem; }
+    .output-panel { border-top: 1px solid var(--border); background: var(--surface); }
+    .output-header { display: flex; align-items: center; justify-content: space-between; padding: 7px 1.25rem; border-bottom: 1px solid var(--border); background: var(--bg); }
+    .output-label { font-size: 11px; font-family: var(--mono); color: var(--muted); }
+    .copy-btn { font-size: 12px; padding: 4px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; font-family: var(--sans); display: flex; align-items: center; gap: 5px; }
     .copy-btn:hover { background: var(--bg); }
-    #css-out {
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 1rem 1.5rem;
-      line-height: 1.65;
-      overflow-x: auto;
-      color: var(--text);
-      max-height: 200px;
-      overflow-y: auto;
+    #css-out { font-family: var(--mono); font-size: 12px; padding: .9rem 1.25rem; line-height: 1.65; overflow-x: auto; color: var(--text); max-height: 180px; overflow-y: auto; }
+
+    /* ── Animations tab ── */
+    .anim-tab { flex: 1; overflow-y: auto; padding: 2rem 2.5rem; }
+    .anim-tab-inner { max-width: 960px; margin: 0 auto; }
+
+    .anim-filters { display: flex; gap: 6px; margin-bottom: 2rem; }
+    .anim-filter { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-family: var(--sans); transition: all .15s; }
+    .anim-filter.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .anim-section-label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; margin-bottom: 1rem; margin-top: .5rem; }
+    .anim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 2.5rem; }
+
+    .anim-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.25rem 1rem 1rem; display: flex; flex-direction: column; align-items: center;
+      gap: .75rem; cursor: pointer; transition: border-color .15s, box-shadow .15s;
+      position: relative; overflow: hidden;
+    }
+    .anim-card:hover { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+    .anim-card:hover .replay-hint { opacity: 1; }
+
+    .anim-stage { width: 100%; height: 80px; display: flex; align-items: center; justify-content: center; }
+    .anim-box {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--accent); opacity: 1;
+    }
+    .anim-box.round { border-radius: 50%; }
+    .anim-box.bar   { width: 80px; height: 12px; border-radius: 6px; }
+
+    .anim-name { font-size: 13px; font-weight: 600; color: var(--text); text-align: center; }
+    .anim-class-tag {
+      font-size: 11px; font-family: var(--mono);
+      background: #eff6ff; color: #1d4ed8;
+      padding: 3px 8px; border-radius: 4px; border: 1px solid #bfdbfe;
+    }
+    .anim-badge {
+      font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px;
+      position: absolute; top: 8px; right: 8px;
+    }
+    .badge-entrance  { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .badge-continuous{ background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-attention { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+
+    .replay-hint {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      text-align: center; font-size: 11px; color: var(--accent);
+      background: linear-gradient(transparent, var(--surface));
+      padding: 10px 0 4px; opacity: 0; transition: opacity .15s;
+      pointer-events: none;
     }
 
-    /* ── Focus ── */
-    :focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 2px;
+    /* ── Stagger demo ── */
+    .stagger-demo { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+    .stagger-demo h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: .4rem; }
+    .stagger-demo p  { font-size: 12px; color: var(--muted); margin-bottom: 1rem; }
+    .stagger-row { display: flex; gap: 10px; }
+    .stagger-box {
+      flex: 1; height: 48px; background: var(--accent); border-radius: 8px; opacity: 0;
+    }
+    .stagger-box.go { animation: tp-fade-in .4s ease both; }
+    .stagger-box.go:nth-child(1) { animation-delay: 0s; }
+    .stagger-box.go:nth-child(2) { animation-delay: .1s; }
+    .stagger-box.go:nth-child(3) { animation-delay: .2s; }
+    .stagger-box.go:nth-child(4) { animation-delay: .3s; }
+    .stagger-box.go:nth-child(5) { animation-delay: .4s; }
+    .replay-btn-large {
+      margin-top: 1rem; font-size: 12px; font-family: var(--sans);
+      padding: 6px 16px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); cursor: pointer; display: flex;
+      align-items: center; gap: 5px; transition: background .12s;
+    }
+    .replay-btn-large:hover { background: var(--border); }
+
+    /* ── Keyframes ── */
+    @keyframes tp-fade-in   { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes tp-slide-in  { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes tp-slide-up  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes tp-slide-right{ from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes tp-scale-in  { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes tp-zoom-in   { from { opacity: 0; transform: scale(.5); } to { opacity: 1; transform: scale(1); } }
+    @keyframes tp-flip      { from { opacity: 0; transform: rotateY(90deg); } to { opacity: 1; transform: rotateY(0); } }
+    @keyframes tp-rotate-in { from { opacity: 0; transform: rotate(-180deg) scale(.5); } to { opacity: 1; transform: rotate(0) scale(1); } }
+    @keyframes tp-drop-in   { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes tp-pulse     { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+    @keyframes tp-float     { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes tp-bounce    {
+      0%,100% { transform: translateY(0); animation-timing-function: cubic-bezier(.8,0,1,1); }
+      50%     { transform: translateY(-14px); animation-timing-function: cubic-bezier(0,0,.2,1); }
+    }
+    @keyframes tp-swing     { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+    @keyframes tp-spin      { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+    @keyframes tp-blink     { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes tp-shake     {
+      0%,100% { transform: translateX(0); }
+      15%     { transform: translateX(-7px); }
+      30%     { transform: translateX(7px); }
+      45%     { transform: translateX(-5px); }
+      60%     { transform: translateX(5px); }
+      75%     { transform: translateX(-3px); }
+      90%     { transform: translateX(3px); }
+    }
+    @keyframes tp-ping      {
+      0%   { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition-duration: .01ms !important; }
-    }
+    /* ── Animation classes (applied to demo boxes) ── */
+    .tp-fade-in    { animation: tp-fade-in  .5s ease both; }
+    .tp-slide-in   { animation: tp-slide-in .5s ease both; }
+    .tp-slide-up   { animation: tp-slide-up .5s ease both; }
+    .tp-slide-right{ animation: tp-slide-right .5s ease both; }
+    .tp-scale-in   { animation: tp-scale-in .45s ease both; }
+    .tp-zoom-in    { animation: tp-zoom-in  .45s ease both; }
+    .tp-flip       { animation: tp-flip     .55s ease both; perspective: 400px; }
+    .tp-rotate-in  { animation: tp-rotate-in .55s ease both; }
+    .tp-drop-in    { animation: tp-drop-in  .5s cubic-bezier(.34,1.56,.64,1) both; }
+    .tp-pulse      { animation: tp-pulse   1.8s ease infinite; }
+    .tp-float      { animation: tp-float   3s ease-in-out infinite; }
+    .tp-bounce     { animation: tp-bounce  1s ease infinite; }
+    .tp-swing      { animation: tp-swing   2s ease-in-out infinite; }
+    .tp-spin       { animation: tp-spin    1.5s linear infinite; }
+    .tp-blink      { animation: tp-blink   1s step-end infinite; }
+    .tp-shake      { animation: tp-shake   .5s ease both; }
+    .tp-ping       { animation: tp-ping    1s cubic-bezier(0,0,.2,1) infinite; }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
   </style>
   <style id="ts"></style>
 </head>
@@ -236,212 +225,222 @@
   <div class="nav-links">
     <a href="https://github.com/tranjcs/Theme-Park">GitHub</a>
     <a href="https://github.com/tranjcs/Theme-Park#readme">Docs</a>
-    <a href="https://cdn.jsdelivr.net/npm/theme-park/themes/theme-modern.css" class="nav-cta">Get CDN link</a>
+    <a href="https://cdn.jsdelivr.net/npm/theme-park/themes/theme-modern.css" class="nav-cta">CDN</a>
   </div>
 </nav>
 
-<div class="layout">
+<div class="page-tabs" role="tablist">
+  <button class="page-tab on" role="tab" aria-selected="true"  onclick="showTab('builder',this)">
+    <i class="ti ti-palette" aria-hidden="true"></i> Builder
+  </button>
+  <button class="page-tab"    role="tab" aria-selected="false" onclick="showTab('animations',this)">
+    <i class="ti ti-sparkles" aria-hidden="true"></i> Animations
+  </button>
+</div>
 
-  <!-- Sidebar controls -->
-  <aside class="sidebar" aria-label="Theme controls">
+<!-- ═══ BUILDER TAB ═══ -->
+<div id="tab-builder" class="tab-pane" role="tabpanel">
+  <div class="builder-layout">
 
-    <div class="ctrl-section">
-      <div class="sidebar-title">Start from preset</div>
-      <div class="preset-row">
-        <button class="preset-btn on" id="pb-modern"    onclick="preset('modern',this)">Modern</button>
-        <button class="preset-btn"    id="pb-editorial" onclick="preset('editorial',this)">Editorial</button>
-        <button class="preset-btn"    id="pb-terminal"  onclick="preset('terminal',this)">Terminal</button>
-        <button class="preset-btn"    id="pb-custom"    style="display:none">Custom</button>
-      </div>
-    </div>
-
-    <div class="ctrl-section">
-      <div class="sidebar-title">Colors</div>
-      <div class="ctrl-row"><span class="ctrl-name">Accent</span>    <input type="color" id="ca"  oninput="up('accent',this.value)"></div>
-      <div class="ctrl-row"><span class="ctrl-name">Background</span><input type="color" id="cb"  oninput="up('bg',this.value)"></div>
-      <div class="ctrl-row"><span class="ctrl-name">Surface</span>   <input type="color" id="cs"  oninput="up('surface',this.value)"></div>
-      <div class="ctrl-row"><span class="ctrl-name">Text</span>      <input type="color" id="ct"  oninput="up('text',this.value)"></div>
-      <div class="ctrl-row"><span class="ctrl-name">Muted</span>     <input type="color" id="cm"  oninput="up('muted',this.value)"></div>
-      <div class="ctrl-row"><span class="ctrl-name">Border</span>    <input type="color" id="cbo" oninput="up('border',this.value)"></div>
-    </div>
-
-    <div class="ctrl-section">
-      <div class="sidebar-title">Font family</div>
-      <select id="fsel" onchange="up('font',this.value)">
-        <option value="system-ui,'Segoe UI',sans-serif">System UI</option>
-        <option value="Georgia,serif">Georgia (Serif)</option>
-        <option value="'Courier New',monospace">Courier New (Mono)</option>
-        <option value="'Trebuchet MS',sans-serif">Trebuchet MS</option>
-      </select>
-    </div>
-
-    <div class="ctrl-section">
-      <div class="sidebar-title">Border radius</div>
-      <div class="range-wrap">
-        <input type="range" id="rr" min="0" max="20" step="1"
-               oninput="up('r',+this.value);document.getElementById('rv').textContent=this.value+'px'">
-        <span class="range-val" id="rv">8px</span>
-      </div>
-    </div>
-
-    <div class="ctrl-section">
-      <div class="sidebar-title">Code block</div>
-      <select id="csel" onchange="up('code',this.value)">
-        <option value="dark">Dark background</option>
-        <option value="light">Light background</option>
-      </select>
-    </div>
-
-    <div class="ctrl-section">
-      <div class="sidebar-title">Button style</div>
-      <select id="bsel" onchange="up('btnStyle',this.value)">
-        <option value="filled">Filled</option>
-        <option value="outline">Outline</option>
-        <option value="pill">Pill (filled)</option>
-      </select>
-    </div>
-
-  </aside>
-
-  <!-- Preview + output -->
-  <main class="main">
-
-    <div class="preview-wrap">
-      <div class="preview-card" id="pv">
-
-        <div class="pv-title" style="margin-bottom:.4rem">The Quick Brown Fox</div>
-        <p class="pv-muted" style="margin-bottom:1.5rem;font-size:14px">A sample of body text to preview your theme across all components below.</p>
-
-        <div class="pv-h1" style="margin-bottom:.4rem">Heading One</div>
-        <div class="pv-h2" style="margin-bottom:.4rem">Heading Two</div>
-        <div class="pv-h3" style="margin-bottom:1.25rem">Heading Three</div>
-
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.5rem">
-          <button class="pv-bp">Primary</button>
-          <button class="pv-bs">Secondary</button>
-          <button class="pv-bg">Ghost</button>
+    <aside class="sidebar" aria-label="Theme controls">
+      <div class="ctrl-section">
+        <div class="sidebar-title">Preset</div>
+        <div class="preset-row">
+          <button class="preset-btn on" id="pb-modern"    onclick="preset('modern',this)">Modern</button>
+          <button class="preset-btn"    id="pb-editorial" onclick="preset('editorial',this)">Editorial</button>
+          <button class="preset-btn"    id="pb-terminal"  onclick="preset('terminal',this)">Terminal</button>
+          <button class="preset-btn"    id="pb-custom"    style="display:none">Custom</button>
         </div>
-
-        <p class="pv-body" style="font-size:14px;margin-bottom:.75rem">
-          Use <code class="pv-ic">const</code> for block-scoped variables and
-          <code class="pv-ic">let</code> when reassignment is needed.
-        </p>
-
-        <div class="pv-pre" style="margin-bottom:1.5rem">const greet = (name) => `Hello, ${name}!`;</div>
-
-        <figure>
-          <div class="pv-img">
-            <i class="ti ti-photo" style="font-size:32px;opacity:.3" aria-hidden="true"></i>
-          </div>
-          <figcaption class="pv-cap">Figure 1 — image caption goes here</figcaption>
-        </figure>
-
       </div>
-    </div>
+      <div class="ctrl-section">
+        <div class="sidebar-title">Colors</div>
+        <div class="ctrl-row"><span class="ctrl-name">Accent</span>    <input type="color" id="ca"  oninput="up('accent',this.value)"></div>
+        <div class="ctrl-row"><span class="ctrl-name">Background</span><input type="color" id="cb"  oninput="up('bg',this.value)"></div>
+        <div class="ctrl-row"><span class="ctrl-name">Surface</span>   <input type="color" id="cs"  oninput="up('surface',this.value)"></div>
+        <div class="ctrl-row"><span class="ctrl-name">Text</span>      <input type="color" id="ct"  oninput="up('text',this.value)"></div>
+        <div class="ctrl-row"><span class="ctrl-name">Muted</span>     <input type="color" id="cm"  oninput="up('muted',this.value)"></div>
+        <div class="ctrl-row"><span class="ctrl-name">Border</span>    <input type="color" id="cbo" oninput="up('border',this.value)"></div>
+      </div>
+      <div class="ctrl-section">
+        <div class="sidebar-title">Font</div>
+        <select id="fsel" onchange="up('font',this.value)">
+          <option value="system-ui,'Segoe UI',sans-serif">System UI</option>
+          <option value="Georgia,serif">Georgia (Serif)</option>
+          <option value="'Courier New',monospace">Courier New (Mono)</option>
+          <option value="'Trebuchet MS',sans-serif">Trebuchet MS</option>
+        </select>
+      </div>
+      <div class="ctrl-section">
+        <div class="sidebar-title">Border radius</div>
+        <div class="range-wrap">
+          <input type="range" id="rr" min="0" max="20" step="1" oninput="up('r',+this.value);document.getElementById('rv').textContent=this.value+'px'">
+          <span class="range-val" id="rv">8px</span>
+        </div>
+      </div>
+      <div class="ctrl-section">
+        <div class="sidebar-title">Code block</div>
+        <select id="csel" onchange="up('code',this.value)">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+      <div class="ctrl-section">
+        <div class="sidebar-title">Button style</div>
+        <select id="bsel" onchange="up('btnStyle',this.value)">
+          <option value="filled">Filled</option>
+          <option value="outline">Outline</option>
+          <option value="pill">Pill</option>
+        </select>
+      </div>
+    </aside>
 
-    <div class="output-panel">
-      <div class="output-header">
-        <span class="output-label">Generated CSS — paste into your project</span>
-        <div class="output-actions">
+    <main class="builder-main">
+      <div class="preview-wrap">
+        <div class="preview-card" id="pv">
+          <div class="pv-title" style="margin-bottom:.4rem">The Quick Brown Fox</div>
+          <p class="pv-muted" style="margin-bottom:1.5rem;font-size:14px">A sample of body text to preview your theme across all components below.</p>
+          <div class="pv-h1" style="margin-bottom:.4rem">Heading One</div>
+          <div class="pv-h2" style="margin-bottom:.4rem">Heading Two</div>
+          <div class="pv-h3" style="margin-bottom:1.25rem">Heading Three</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.5rem">
+            <button class="pv-bp">Primary</button>
+            <button class="pv-bs">Secondary</button>
+            <button class="pv-bg">Ghost</button>
+          </div>
+          <p class="pv-body" style="font-size:14px;margin-bottom:.75rem">Use <code class="pv-ic">const</code> for block-scoped variables and <code class="pv-ic">let</code> when reassignment is needed.</p>
+          <div class="pv-pre" style="margin-bottom:1.5rem">const greet = (name) => `Hello, ${name}!`;</div>
+          <figure>
+            <div class="pv-img"><i class="ti ti-photo" style="font-size:32px;opacity:.3" aria-hidden="true"></i></div>
+            <figcaption class="pv-cap">Figure 1 — image caption goes here</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="output-panel">
+        <div class="output-header">
+          <span class="output-label">Generated CSS — paste into your project</span>
           <button class="copy-btn" id="cpbtn" onclick="doCopy()">
             <i class="ti ti-copy" style="font-size:14px" aria-hidden="true"></i> Copy
           </button>
         </div>
+        <pre id="css-out"></pre>
       </div>
-      <pre id="css-out"></pre>
-    </div>
+    </main>
+  </div>
+</div>
 
-  </main>
+<!-- ═══ ANIMATIONS TAB ═══ -->
+<div id="tab-animations" class="tab-pane" role="tabpanel" hidden>
+  <div class="anim-tab">
+    <div class="anim-tab-inner">
+
+      <div class="anim-filters" role="group" aria-label="Filter animations">
+        <button class="anim-filter on" onclick="filterAnims('all',this)">All</button>
+        <button class="anim-filter" onclick="filterAnims('entrance',this)">Entrance</button>
+        <button class="anim-filter" onclick="filterAnims('continuous',this)">Continuous</button>
+        <button class="anim-filter" onclick="filterAnims('attention',this)">Attention</button>
+      </div>
+
+      <div id="anim-grid" class="anim-grid" role="list"></div>
+
+      <!-- Stagger demo -->
+      <div class="stagger-demo" id="stagger-section" data-category="entrance">
+        <h3>Stagger</h3>
+        <p>Combine <code style="font-family:var(--mono);font-size:11px;background:var(--bg);padding:1px 5px;border-radius:3px">.animate-delay-1/2/3</code> to cascade elements in sequence.</p>
+        <div class="stagger-row" id="stagger-row">
+          <div class="stagger-box go"></div>
+          <div class="stagger-box go"></div>
+          <div class="stagger-box go"></div>
+          <div class="stagger-box go"></div>
+          <div class="stagger-box go"></div>
+        </div>
+        <button class="replay-btn-large" onclick="replayStagger()">
+          <i class="ti ti-player-play" style="font-size:13px" aria-hidden="true"></i> Replay stagger
+        </button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <script>
+/* ─────────────────── Builder ─────────────────── */
 const PS = {
   modern:   {accent:'#2563eb',bg:'#ffffff',surface:'#f5f7fa',text:'#0f172a',muted:'#475569',border:'#e2e8f0',font:"system-ui,'Segoe UI',sans-serif",r:8,code:'dark',btnStyle:'filled'},
   editorial:{accent:'#8b1a1a',bg:'#faf8f3',surface:'#f0ece0',text:'#1a1208',muted:'#7a6a52',border:'#b8a98e',font:'Georgia,serif',r:2,code:'light',btnStyle:'outline'},
   terminal: {accent:'#3fb950',bg:'#0d1117',surface:'#161b22',text:'#c9d1d9',muted:'#8b949e',border:'#30363d',font:"'Courier New',monospace",r:0,code:'dark',btnStyle:'filled'},
 };
-
 let C = {...PS.modern};
 
 function up(k,v){ C[k]=v; render(); genCSS(); markCustom(); }
 
 function markCustom(){
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('on'));
-  const cb = document.getElementById('pb-custom');
-  cb.style.display = 'inline';
-  cb.classList.add('on');
+  const cb=document.getElementById('pb-custom');
+  cb.style.display='inline'; cb.classList.add('on');
 }
 
-function preset(name, btn){
-  C = {...PS[name]};
-  sync();
+function preset(name,btn){
+  C={...PS[name]}; sync();
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  document.getElementById('pb-custom').style.display = 'none';
+  document.getElementById('pb-custom').style.display='none';
   render(); genCSS();
 }
 
 function sync(){
-  document.getElementById('ca').value  = C.accent;
-  document.getElementById('cb').value  = C.bg;
-  document.getElementById('cs').value  = C.surface;
-  document.getElementById('ct').value  = C.text;
-  document.getElementById('cm').value  = C.muted;
-  document.getElementById('cbo').value = C.border;
-  document.getElementById('rr').value  = C.r;
-  document.getElementById('rv').textContent = C.r + 'px';
-  document.getElementById('csel').value = C.code;
-  document.getElementById('bsel').value = C.btnStyle;
-  const fs = document.getElementById('fsel');
-  for(let o of fs.options){ if(o.value === C.font){ fs.value = o.value; break; } }
+  document.getElementById('ca').value =C.accent;
+  document.getElementById('cb').value =C.bg;
+  document.getElementById('cs').value =C.surface;
+  document.getElementById('ct').value =C.text;
+  document.getElementById('cm').value =C.muted;
+  document.getElementById('cbo').value=C.border;
+  document.getElementById('rr').value =C.r;
+  document.getElementById('rv').textContent=C.r+'px';
+  document.getElementById('csel').value=C.code;
+  document.getElementById('bsel').value=C.btnStyle;
+  const fs=document.getElementById('fsel');
+  for(let o of fs.options){if(o.value===C.font){fs.value=o.value;break;}}
 }
 
 function render(){
-  const {accent,bg,surface,text,muted,border,font,r,code,btnStyle} = C;
-  const cBg  = code === 'dark' ? '#0d1117' : surface;
-  const cFg  = code === 'dark' ? '#e2e8f0' : text;
-  const cBdr = code === 'dark' ? '#30363d' : border;
-  const rs   = Math.max(0, r - 2);
-  const pr   = btnStyle === 'pill' ? 999 : r;
-  const bpBg = btnStyle === 'outline' ? 'transparent' : accent;
-  const bpFg = btnStyle === 'outline' ? accent : '#ffffff';
-
-  document.getElementById('ts').textContent = `
-    #pv { background: ${bg}; font-family: ${font}; color: ${text}; }
-    .pv-title { font-size: 2rem; font-weight: 700; color: ${text}; letter-spacing: -.03em; line-height: 1.1; }
-    .pv-h1 { font-size: 1.5rem; font-weight: 700; color: ${text}; border-bottom: 2px solid ${accent}; padding-bottom: 4px; font-family: ${font}; }
-    .pv-h2 { font-size: 1.2rem; font-weight: 600; color: ${text}; font-family: ${font}; }
-    .pv-h3 { font-size: 1rem;   font-weight: 600; color: ${accent}; font-family: ${font}; }
-    .pv-body  { color: ${text};  font-family: ${font}; line-height: 1.7; }
-    .pv-muted { color: ${muted}; font-family: ${font}; line-height: 1.7; }
-    .pv-bp { background: ${bpBg}; color: ${bpFg}; border: 1.5px solid ${accent}; padding: 7px 20px; border-radius: ${pr}px; font-family: ${font}; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s, opacity .15s; }
-    .pv-bs { background: transparent; color: ${accent}; border: 1.5px solid ${accent}; padding: 7px 20px; border-radius: ${pr}px; font-family: ${font}; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .15s; }
-    .pv-bg { background: transparent; color: ${muted}; border: 1px solid ${border}; padding: 7px 20px; border-radius: ${pr}px; font-family: ${font}; font-size: 14px; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
-    .pv-bp:hover { opacity: .85; }
-    .pv-bs:hover { background: ${accent}18; }
-    .pv-bg:hover { background: ${surface}; color: ${text}; border-color: ${muted}; }
-    @media (prefers-reduced-motion: no-preference) {
-      .pv-bp, .pv-bs, .pv-bg { transition: background .15s, opacity .15s, transform .15s, border-color .15s, color .15s; }
-      .pv-bp:hover, .pv-bs:hover, .pv-bg:hover { transform: translateY(-2px); }
-      .pv-bp:active, .pv-bs:active, .pv-bg:active { transform: translateY(0); }
-    }
-    .pv-ic { background: ${surface}; color: ${accent}; padding: 1px 6px; border-radius: ${rs}px; border: 1px solid ${border}; font-family: 'Courier New', monospace; font-size: .85em; }
-    .pv-pre { background: ${cBg}; color: ${cFg}; padding: 1rem 1.25rem; border-radius: ${r}px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; border: 1px solid ${cBdr}; }
-    .pv-img { height: 100px; background: ${surface}; border-radius: ${r}px; border: 1px solid ${border}; display: flex; align-items: center; justify-content: center; color: ${muted}; margin-bottom: 6px; }
-    .pv-cap { font-size: 12px; color: ${muted}; text-align: center; font-family: ${font}; font-style: italic; }
-    :focus-visible { outline: 3px solid ${accent}; outline-offset: 3px; }
+  const {accent,bg,surface,text,muted,border,font,r,code,btnStyle}=C;
+  const cBg =code==='dark'?'#0d1117':surface;
+  const cFg =code==='dark'?'#e2e8f0':text;
+  const cBdr=code==='dark'?'#30363d':border;
+  const rs  =Math.max(0,r-2);
+  const pr  =btnStyle==='pill'?999:r;
+  const bpBg=btnStyle==='outline'?'transparent':accent;
+  const bpFg=btnStyle==='outline'?accent:'#ffffff';
+  document.getElementById('ts').textContent=`
+    #pv{background:${bg};font-family:${font};color:${text};}
+    .pv-title{font-size:2rem;font-weight:700;color:${text};letter-spacing:-.03em;line-height:1.1}
+    .pv-h1{font-size:1.5rem;font-weight:700;color:${text};border-bottom:2px solid ${accent};padding-bottom:4px;font-family:${font}}
+    .pv-h2{font-size:1.2rem;font-weight:600;color:${text};font-family:${font}}
+    .pv-h3{font-size:1rem;font-weight:600;color:${accent};font-family:${font}}
+    .pv-body{color:${text};font-family:${font};line-height:1.7}
+    .pv-muted{color:${muted};font-family:${font};line-height:1.7}
+    .pv-bp{background:${bpBg};color:${bpFg};border:1.5px solid ${accent};padding:7px 20px;border-radius:${pr}px;font-family:${font};font-size:14px;font-weight:500;cursor:pointer;transition:background .15s,opacity .15s,transform .15s}
+    .pv-bs{background:transparent;color:${accent};border:1.5px solid ${accent};padding:7px 20px;border-radius:${pr}px;font-family:${font};font-size:14px;font-weight:500;cursor:pointer;transition:background .15s,transform .15s}
+    .pv-bg{background:transparent;color:${muted};border:1px solid ${border};padding:7px 20px;border-radius:${pr}px;font-family:${font};font-size:14px;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .15s}
+    .pv-bp:hover{opacity:.85;transform:translateY(-2px)}
+    .pv-bs:hover{background:${accent}18;transform:translateY(-2px)}
+    .pv-bg:hover{background:${surface};color:${text};border-color:${muted};transform:translateY(-2px)}
+    .pv-bp:active,.pv-bs:active,.pv-bg:active{transform:translateY(0)}
+    .pv-ic{background:${surface};color:${accent};padding:1px 6px;border-radius:${rs}px;border:1px solid ${border};font-family:'Courier New',monospace;font-size:.85em}
+    .pv-pre{background:${cBg};color:${cFg};padding:1rem 1.25rem;border-radius:${r}px;font-family:'Courier New',monospace;font-size:13px;line-height:1.6;border:1px solid ${cBdr}}
+    .pv-img{height:100px;background:${surface};border-radius:${r}px;border:1px solid ${border};display:flex;align-items:center;justify-content:center;color:${muted};margin-bottom:6px}
+    .pv-cap{font-size:12px;color:${muted};text-align:center;font-family:${font};font-style:italic}
+    :focus-visible{outline:3px solid ${accent};outline-offset:3px}
   `;
 }
 
 function genCSS(){
-  const {accent,bg,surface,text,muted,border,font,r,code,btnStyle} = C;
-  const cBg  = code === 'dark' ? '#0d1117' : surface;
-  const cFg  = code === 'dark' ? '#e2e8f0' : text;
-  const cBdr = code === 'dark' ? '#30363d' : border;
-  const rs = Math.max(0, r - 2);
-  const rl = r + 4;
-  document.getElementById('css-out').textContent =
-`:root {
+  const {accent,bg,surface,text,muted,border,font,r,code,btnStyle}=C;
+  const cBg=code==='dark'?'#0d1117':surface;
+  const cFg=code==='dark'?'#e2e8f0':text;
+  const cBdr=code==='dark'?'#30363d':border;
+  const rs=Math.max(0,r-2),rl=r+4;
+  document.getElementById('css-out').textContent=`:root {
   --font-sans:        ${font};
   --font-mono:        'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
@@ -452,10 +451,10 @@ function genCSS(){
   --color-text-muted: ${muted};
   --color-accent:     ${accent};
 
-  --color-btn-bg:     ${btnStyle === 'outline' ? 'transparent' : accent};
-  --color-btn-text:   ${btnStyle === 'outline' ? accent : '#ffffff'};
+  --color-btn-bg:     ${btnStyle==='outline'?'transparent':accent};
+  --color-btn-text:   ${btnStyle==='outline'?accent:'#ffffff'};
   --color-btn-border: ${accent};
-  --color-btn-radius: ${btnStyle === 'pill' ? '999' : r}px;
+  --color-btn-radius: ${btnStyle==='pill'?'999':r}px;
 
   --color-code-bg:    ${cBg};
   --color-code-text:  ${cFg};
@@ -468,14 +467,94 @@ function genCSS(){
 }
 
 function doCopy(){
-  navigator.clipboard.writeText(document.getElementById('css-out').textContent).then(() => {
-    const btn = document.getElementById('cpbtn');
-    btn.innerHTML = '<i class="ti ti-check" style="font-size:14px"></i> Copied!';
-    setTimeout(() => { btn.innerHTML = '<i class="ti ti-copy" style="font-size:14px"></i> Copy'; }, 2000);
+  navigator.clipboard.writeText(document.getElementById('css-out').textContent).then(()=>{
+    const b=document.getElementById('cpbtn');
+    b.innerHTML='<i class="ti ti-check" style="font-size:14px"></i> Copied!';
+    setTimeout(()=>{b.innerHTML='<i class="ti ti-copy" style="font-size:14px"></i> Copy';},2000);
   });
 }
 
-sync(); render(); genCSS();
+/* ─────────────────── Tab switching ─────────────────── */
+function showTab(name, btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>{p.hidden=true;});
+  document.getElementById('tab-'+name).hidden=false;
+  document.querySelectorAll('.page-tab').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-selected','false');});
+  btn.classList.add('on'); btn.setAttribute('aria-selected','true');
+}
+
+/* ─────────────────── Animation showcase ─────────────────── */
+const ANIMS = [
+  {name:'Fade in',    cls:'tp-fade-in',    category:'entrance',   shape:'default'},
+  {name:'Slide in',   cls:'tp-slide-in',   category:'entrance',   shape:'default'},
+  {name:'Slide up',   cls:'tp-slide-up',   category:'entrance',   shape:'default'},
+  {name:'Slide right',cls:'tp-slide-right',category:'entrance',   shape:'default'},
+  {name:'Scale in',   cls:'tp-scale-in',   category:'entrance',   shape:'default'},
+  {name:'Zoom in',    cls:'tp-zoom-in',    category:'entrance',   shape:'round'},
+  {name:'Flip',       cls:'tp-flip',       category:'entrance',   shape:'bar'},
+  {name:'Rotate in',  cls:'tp-rotate-in',  category:'entrance',   shape:'round'},
+  {name:'Drop in',    cls:'tp-drop-in',    category:'entrance',   shape:'default'},
+  {name:'Float',      cls:'tp-float',      category:'continuous', shape:'round'},
+  {name:'Bounce',     cls:'tp-bounce',     category:'continuous', shape:'round'},
+  {name:'Pulse',      cls:'tp-pulse',      category:'continuous', shape:'default'},
+  {name:'Swing',      cls:'tp-swing',      category:'continuous', shape:'bar'},
+  {name:'Spin',       cls:'tp-spin',       category:'continuous', shape:'round'},
+  {name:'Blink',      cls:'tp-blink',      category:'continuous', shape:'bar'},
+  {name:'Ping',       cls:'tp-ping',       category:'continuous', shape:'round'},
+  {name:'Shake',      cls:'tp-shake',      category:'attention',  shape:'default'},
+];
+
+const BADGE = {
+  entrance:   '<span class="anim-badge badge-entrance">Entrance</span>',
+  continuous: '<span class="anim-badge badge-continuous">Loop</span>',
+  attention:  '<span class="anim-badge badge-attention">Attention</span>',
+};
+
+function buildGrid(filter){
+  const grid=document.getElementById('anim-grid');
+  const stagger=document.getElementById('stagger-section');
+  grid.innerHTML='';
+  const show = a => filter==='all' || a.category===filter;
+  ANIMS.filter(show).forEach(a=>{
+    const card=document.createElement('div');
+    card.className='anim-card';
+    card.setAttribute('role','listitem');
+    card.dataset.category=a.category;
+    card.innerHTML=`
+      ${BADGE[a.category]}
+      <div class="anim-stage">
+        <div class="anim-box ${a.shape==='round'?'round':a.shape==='bar'?'bar':''} ${a.cls}"></div>
+      </div>
+      <div class="anim-name">${a.name}</div>
+      <div class="anim-class-tag">.animate-${a.cls.replace('tp-','')}</div>
+      <div class="replay-hint"><i class="ti ti-player-play" style="font-size:11px"></i> click to replay</div>
+    `;
+    card.addEventListener('click',()=>replayCard(card,a));
+    grid.appendChild(card);
+  });
+  stagger.style.display=(filter==='all'||filter==='entrance')?'':'none';
+}
+
+function replayCard(card, a){
+  const box=card.querySelector('.anim-box');
+  box.classList.remove(a.cls);
+  box.offsetWidth;
+  box.classList.add(a.cls);
+}
+
+function filterAnims(cat, btn){
+  document.querySelectorAll('.anim-filter').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  buildGrid(cat);
+}
+
+function replayStagger(){
+  const boxes=document.querySelectorAll('#stagger-row .stagger-box');
+  boxes.forEach(b=>{b.classList.remove('go');b.offsetWidth;});
+  boxes.forEach(b=>b.classList.add('go'));
+}
+
+/* ─────────────────── Init ─────────────────── */
+sync(); render(); genCSS(); buildGrid('all');
 </script>
 </body>
 </html>
