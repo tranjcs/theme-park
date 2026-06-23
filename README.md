@@ -2,7 +2,7 @@
 
 > A plug-and-play CSS theme library. Pick a theme, drop in a `<link>` tag, done.
 
-**[Live Theme Builder →](https://tranjcs.github.io/Theme-Park/builder)**
+**[Live Theme Builder →](https://tranjcs.github.io/theme-park/builder)**
 
 ---
 
@@ -12,13 +12,13 @@ Pick a theme and paste the CDN link into your `<head>`:
 
 ```html
 <!-- Modern — clean, blue accent -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-park/themes/theme-modern.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-modern.css">
 
 <!-- Editorial — warm serif, newspaper feel -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-park/themes/theme-editorial.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-editorial.css">
 
 <!-- Terminal — dark monospace, hacker green -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-park/themes/theme-terminal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-terminal.css">
 ```
 
 That's it. No build step, no JavaScript, no config.

@@ -34,7 +34,19 @@
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
     .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .15s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-cta { font-size: 13px; font-weight: 500; padding: 6px 16px; background: var(--accent); color: #fff; border-radius: var(--radius); text-decoration: none; }
+    .nav-cta { font-size: 13px; font-weight: 500; padding: 6px 16px; background: var(--accent); color: #fff; border-radius: var(--radius); border: none; cursor: pointer; font-family: var(--sans); position: relative; }
+    .cdn-dropdown {
+      display: none; position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: .5rem; min-width: 340px; box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 200;
+    }
+    .cdn-dropdown.open { display: block; }
+    .cdn-item { padding: .5rem .6rem; border-radius: 6px; margin-bottom: 4px; }
+    .cdn-item:last-child { margin-bottom: 0; }
+    .cdn-label { font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 4px; font-family: var(--sans); }
+    .cdn-row { display: flex; align-items: center; gap: 6px; }
+    .cdn-code { flex: 1; font-size: 11px; font-family: var(--mono); color: var(--text); background: var(--bg); padding: 5px 8px; border-radius: 5px; border: 1px solid var(--border); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cdn-copy { font-size: 11px; padding: 4px 9px; border-radius: 5px; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; font-family: var(--sans); flex-shrink: 0; white-space: nowrap; }
 
     /* ── Page tabs ── */
     .page-tabs {
@@ -225,7 +237,34 @@
   <div class="nav-links">
     <a href="https://github.com/tranjcs/theme-park">GitHub</a>
     <a href="https://github.com/tranjcs/theme-park#readme">Docs</a>
-    <a href="https://cdn.jsdelivr.net/npm/theme-park/themes/theme-modern.css" class="nav-cta">CDN</a>
+    <div style="position:relative">
+      <button class="nav-cta" onclick="toggleCDN(event)" aria-haspopup="true" aria-expanded="false" id="cdn-btn">
+        CDN <i class="ti ti-chevron-down" style="font-size:11px" aria-hidden="true"></i>
+      </button>
+      <div class="cdn-dropdown" id="cdn-dropdown" role="menu">
+        <div class="cdn-item">
+          <div class="cdn-label">Modern</div>
+          <div class="cdn-row">
+            <div class="cdn-code">cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-modern.css</div>
+            <button class="cdn-copy" onclick="copyCDN(event,'https://cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-modern.css',this)">Copy</button>
+          </div>
+        </div>
+        <div class="cdn-item">
+          <div class="cdn-label">Editorial</div>
+          <div class="cdn-row">
+            <div class="cdn-code">cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-editorial.css</div>
+            <button class="cdn-copy" onclick="copyCDN(event,'https://cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-editorial.css',this)">Copy</button>
+          </div>
+        </div>
+        <div class="cdn-item">
+          <div class="cdn-label">Terminal</div>
+          <div class="cdn-row">
+            <div class="cdn-code">cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-terminal.css</div>
+            <button class="cdn-copy" onclick="copyCDN(event,'https://cdn.jsdelivr.net/gh/tranjcs/theme-park@main/themes/theme-terminal.css',this)">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -555,6 +594,25 @@ function replayStagger(){
 
 /* ─────────────────── Init ─────────────────── */
 sync(); render(); genCSS(); buildGrid('all');
+
+function toggleCDN(e){
+  e.stopPropagation();
+  const dd = document.getElementById('cdn-dropdown');
+  const btn = document.getElementById('cdn-btn');
+  const open = dd.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+}
+function copyCDN(e, url, btn){
+  e.stopPropagation();
+  navigator.clipboard.writeText(url).then(()=>{
+    btn.textContent = 'Copied!';
+    setTimeout(()=>{ btn.textContent = 'Copy'; }, 2000);
+  });
+}
+document.addEventListener('click', ()=>{
+  document.getElementById('cdn-dropdown').classList.remove('open');
+  document.getElementById('cdn-btn').setAttribute('aria-expanded','false');
+});
 </script>
 </body>
 </html>
